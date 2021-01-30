@@ -1,0 +1,17 @@
+.container {
+  border: 2px solid rgba(0, 0, 0, 0);
+  animation: spin 500ms linear infinite;
+  border-top-color: white;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hidden {
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0, 0, 0);
+}

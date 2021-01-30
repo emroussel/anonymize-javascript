@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply text-gray-800;
+  @apply tracking-tight;
+  @apply antialiased;
+}
+
+a {
+  @apply font-bold;
+  @apply underline;
+}

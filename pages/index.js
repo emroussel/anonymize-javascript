@@ -127,7 +127,7 @@ console.log(undercoverVariable);`);
                       setWordType(event.target.value);
                     }}
                     id="word-type"
-                    className="appearance-none py-1 pr-16 pl-2 border-gray-300 border-2 rounded-lg"
+                    className="appearance-none py-1 pr-16 pl-2 border-gray-300 border-2 rounded-lg bg-white"
                   >
                     <option value="">Any words</option>
                     <option value="animals">Animals</option>

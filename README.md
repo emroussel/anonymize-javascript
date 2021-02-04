@@ -4,4 +4,4 @@ Rename variables, functions, classes, and more while keeping code functional. Gr
 
 See live at https://anonymizejs.com.
 
-Built with [Next.js](https://nextjs.org/) + [TailwindCSS](https://tailwindcss.com/) and hosted on [Vercel](https://vercel.com).
+Built with [Next.js](https://nextjs.org/) + [TailwindCSS](https://tailwindcss.com/) and hosted on [Vercel](https://vercel.com). Uses [babel-plugin-sanitize](https://github.com/emroussel/anonymize-javascript) under the hood.

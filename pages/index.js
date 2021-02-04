@@ -99,7 +99,7 @@ console.log(undercoverVariable);`);
                     <span>
                       Make sure the code in the input is valid or{" "}
                       <a
-                        href="https://github.com/emroussel/anonymize/issues/new"
+                        href="https://github.com/emroussel/anonymize-javascript/issues/new"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:opacity-90"

@@ -262,7 +262,7 @@ console.log(undercoverVariable);`);
             </a>{" "}
             by a{" "}
             <a
-              href="https://github.com/emroussel/anonymize/tree/main/pages/api/anonymize.js"
+              href="https://github.com/emroussel/anonymize-javascript/tree/main/pages/api/anonymize.js"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-gray-800"
@@ -284,7 +284,7 @@ console.log(undercoverVariable);`);
             <ul>
               <li>
                 <a
-                  href="https://github.com/emroussel/anonymize"
+                  href="https://github.com/emroussel/anonymize-javascript"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-gray-800"

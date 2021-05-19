@@ -22,6 +22,9 @@ console.log(undercoverVariable);`);
   const [isToastTextVisible, setIsToastTextVisible] = useState(false);
   const [isClipboardSupported, setIsClipboardSupported] = useState(false);
 
+  const [history, setHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+
   useEffect(() => {
     setIsClipboardSupported(
       !!(navigator.clipboard && navigator.clipboard.writeText)
@@ -54,6 +57,13 @@ console.log(undercoverVariable);`);
       if (!res.code || response.status !== 200) {
         throw new Error();
       }
+
+      const newHistoryIndex = historyIndex + 1;
+      setHistory((prevhistory) => [
+        ...prevhistory.slice(0, newHistoryIndex),
+        { input, output: res.code, shouldUsePrettier, wordType },
+      ]);
+      setHistoryIndex(newHistoryIndex);
 
       setResult(res.code);
       setIsSubmitting(false);
@@ -112,8 +122,8 @@ console.log(undercoverVariable);`);
                 </p>
               </div>
             ) : null}
-            <div className="flex flex-col sm:flex-row sm:items-center">
-              <div className="sm:mr-8">
+            <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between">
+              <div>
                 <div className="relative inline-block">
                   <label
                     htmlFor="word-type"
@@ -124,7 +134,9 @@ console.log(undercoverVariable);`);
                   <select
                     value={wordType}
                     onChange={(event) => {
-                      setWordType(event.target.value);
+                      if (!isSubmitting) {
+                        setWordType(event.target.value);
+                      }
                     }}
                     id="word-type"
                     className="appearance-none py-1 pr-16 pl-2 border-gray-300 border-2 rounded-lg bg-white"
@@ -151,11 +163,71 @@ console.log(undercoverVariable);`);
                   </span>
                 </div>
               </div>
-              <div className="flex items-center pt-2 sm:pt-0">
+              <div className="flex mt-0.5 sm:mt-0 sm:items-center absolute right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 sm:transform">
+                <button
+                  className="text-gray-500 hover:text-blue-700 p-1 mr-1 disabled:text-gray-300 disabled:cursor-not-allowed border-gray-300 hover:border-blue-700 disabled:border-gray-300 border-2 rounded-lg bg-white"
+                  onClick={() => {
+                    const newHistoryIndex = historyIndex - 1;
+                    setInput(history[newHistoryIndex].input);
+                    setResult(history[newHistoryIndex].output);
+                    setWordType(history[newHistoryIndex].wordType);
+                    setShouldUsePrettier(
+                      history[newHistoryIndex].shouldUsePrettier
+                    );
+                    setHistoryIndex(newHistoryIndex);
+                  }}
+                  disabled={historyIndex <= 0}
+                  aria-label="Previous"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+                <button
+                  className="text-gray-500 hover:text-blue-700 p-1 ml-1 disabled:text-gray-300 disabled:cursor-not-allowed border-gray-300 hover:border-blue-700 disabled:border-gray-300 border-2 rounded-lg bg-white"
+                  onClick={() => {
+                    const newHistoryIndex = historyIndex + 1;
+                    setInput(history[newHistoryIndex].input);
+                    setResult(history[newHistoryIndex].output);
+                    setWordType(history[newHistoryIndex].wordType);
+                    setShouldUsePrettier(
+                      history[newHistoryIndex].shouldUsePrettier
+                    );
+                    setHistoryIndex(newHistoryIndex);
+                  }}
+                  disabled={historyIndex >= history.length - 1}
+                  aria-label="Next"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div className="flex items-center sm:justify-end pt-3 sm:pt-0">
                 <input
                   checked={shouldUsePrettier}
                   onChange={(event) => {
-                    setShouldUsePrettier(event.target.checked);
+                    if (!isSubmitting) {
+                      setShouldUsePrettier(event.target.checked);
+                    }
                   }}
                   id="prettier-checkbox"
                   type="checkbox"
@@ -168,7 +240,7 @@ console.log(undercoverVariable);`);
             </div>
           </div>
           <div className="w-full flex pt-2 sm:flex-row flex-col">
-            <div className="flex-1 sm:mr-4 ">
+            <div className="flex-1 sm:mr-3">
               <label htmlFor="input" className="text-gray-600 text-sm">
                 Input
               </label>
@@ -177,12 +249,13 @@ console.log(undercoverVariable);`);
                 onChange={(event) => {
                   setInput(event.target.value);
                 }}
-                className="w-full border-gray-300 border-2 py-2 px-4 font-mono rounded-lg mt-1"
+                className="w-full border-gray-300 border-2 py-2 px-2 sm:px-4 font-mono rounded-lg mt-1"
                 rows={15}
                 id="input"
+                readOnly={isSubmitting}
               />
             </div>
-            <div className="flex-1 sm:ml-4 mt-4 sm:mt-0">
+            <div className="flex-1 sm:ml-3 mt-4 sm:mt-0">
               <label htmlFor="output" className="text-gray-600 text-sm">
                 Output
               </label>
@@ -190,13 +263,13 @@ console.log(undercoverVariable);`);
                 <textarea
                   value={result}
                   readOnly
-                  className="w-full border-gray-300 border-2 py-2 px-4 font-mono rounded-lg"
+                  className="w-full border-gray-300 border-2 py-2 px-2 sm:px-4 font-mono rounded-lg"
                   rows={15}
                   id="output"
                 />
                 {isClipboardSupported && result ? (
                   <button
-                    className="text-blue-700 w-10 h-10 absolute p-2 rounded-lg border-gray-300 hover:border-blue-600 hover:text-blue-600 border-2 right-2 top-2 bg-white"
+                    className="text-gray-500 hover:text-blue-700 w-10 h-10 absolute p-2 rounded-lg border-gray-300 hover:border-blue-700 border-2 right-2 top-2 bg-white"
                     type="button"
                     aria-label="Copy to clipboard"
                     onClick={() => {
@@ -316,7 +389,7 @@ console.log(undercoverVariable);`);
           <div
             role="alert"
             aria-live="assertive"
-            className="inline-block py-4 px-8 bg-gray-900 text-white rounded-lg shadow-lg font-medium"
+            className="inline-block py-4 px-6 bg-gray-900 text-white rounded-lg shadow-lg font-medium"
           >
             Code copied to clipboard!
           </div>

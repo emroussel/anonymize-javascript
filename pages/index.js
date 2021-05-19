@@ -4,10 +4,8 @@ import { Spinner } from "../components/Spinner";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  const [
-    input,
-    setInput,
-  ] = useState(`function secretFunction(sneaky, classified) {
+  const [input, setInput] =
+    useState(`function secretFunction(sneaky, classified) {
   return sneaky + classified;
 }
 

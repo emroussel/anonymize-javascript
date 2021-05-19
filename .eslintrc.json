@@ -3,13 +3,11 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended",
-    "prettier/react"
+    "plugin:prettier/recommended"
   ],
   "env": {
     "es6": true,
     "browser": true,
-    "jest": true,
     "node": true
   },
   "rules": {

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Head } from "../components/Head";
 
 export default function Custom404() {
@@ -11,9 +12,9 @@ export default function Custom404() {
           <h1 className="sm:text-5xl md:text-6xl text-3xl font-extrabold tracking-tighter">
             Page not found
           </h1>
-          <a href="/" className="sm:text-xl sm:mt-8 mt-4">
-            Back to anonymizing code
-          </a>
+          <Link href="/">
+            <a className="sm:text-xl sm:mt-8 mt-4">Back to anonymizing code</a>
+          </Link>
         </div>
       </div>
     </>

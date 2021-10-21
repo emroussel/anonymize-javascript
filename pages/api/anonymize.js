@@ -1,7 +1,7 @@
 import { transform } from "@codemod/core";
 import babelPlugin from "babel-plugin-anonymize";
 
-export default (req, res) => {
+const handler = (req, res) => {
   if (req.method !== "POST") {
     res.status(400);
   }
@@ -42,3 +42,5 @@ export default (req, res) => {
 
   res.status(200).json({ code: result.code });
 };
+
+export default handler;

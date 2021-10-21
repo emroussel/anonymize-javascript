@@ -75,6 +75,9 @@ console.log(undercoverVariable);`);
     if (input) {
       anonymize();
     }
+    // We actually only want to run this effect on the first render, so it's
+    // safe to disable the hooks linting rule.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

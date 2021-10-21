@@ -94,10 +94,12 @@ console.log(undercoverVariable);`);
             functional. Great for sanitizing private code in order to share it
             publicly on the internet!
           </p>
-          <div className="w-full sm:pt-20 pt-16">
+          <div
+            className={`w-full ${error ? "sm:pt-8 pt-8" : "sm:pt-20 pt-16"}`}
+          >
             {error ? (
               <div
-                className="bg-red-600 text-white py-4 px-6 rounded-lg mb-8 font-medium"
+                className="bg-red-700 text-white py-4 px-6 rounded-lg mb-12 font-medium max-w-3xl mx-auto"
                 role="alert"
               >
                 <h2 className="font-bold text-xl pb-2">

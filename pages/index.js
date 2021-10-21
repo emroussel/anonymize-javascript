@@ -379,7 +379,7 @@ console.log(undercoverVariable);`);
         </footer>
       </div>
       <div
-        className={`fixed top-4 mx-4 text-center transition-all duration-400 ease-in-out -right-80 ${
+        className={`fixed top-4 mx-4 text-center motion-safe:transition-all duration-400 ease-in-out -right-80 ${
           isToastVisible ? `${styles["toast-visible"]} visible` : "invisible"
         }`}
       >

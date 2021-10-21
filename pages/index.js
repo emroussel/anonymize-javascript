@@ -175,7 +175,7 @@ console.log(undercoverVariable);`);
                     setHistoryIndex(newHistoryIndex);
                   }}
                   disabled={historyIndex <= 0}
-                  aria-label="Previous"
+                  aria-label="Previous output"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -203,7 +203,7 @@ console.log(undercoverVariable);`);
                     setHistoryIndex(newHistoryIndex);
                   }}
                   disabled={historyIndex >= history.length - 1}
-                  aria-label="Next"
+                  aria-label="Next output"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -380,15 +380,13 @@ console.log(undercoverVariable);`);
       </div>
       <div
         className={`fixed top-4 mx-4 text-center motion-safe:transition-all duration-400 ease-in-out -right-80 ${
-          isToastVisible ? `${styles["toast-visible"]} visible` : "invisible"
+          isToastVisible ? styles["toast-visible"] : ""
         }`}
+        role="alert"
+        aria-live="assertive"
       >
         {isToastTextVisible ? (
-          <div
-            role="alert"
-            aria-live="assertive"
-            className="inline-block py-4 px-6 bg-gray-900 text-white rounded-lg shadow-lg font-medium"
-          >
+          <div className="inline-block py-4 px-6 bg-gray-900 text-white rounded-lg shadow-lg font-medium">
             Code copied to clipboard!
           </div>
         ) : null}
